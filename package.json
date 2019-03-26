@@ -1,0 +1,16 @@
+{
+  "name": "wp-dev-env",
+  "version": "1.0.0",
+  "description": "Local environment to develop Wordpress themes",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renantatsuo/wp-dev-env.git"
+  },
+  "author": "Renan Tatsuo (tatsuorenan@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/renantatsuo/wp-dev-env/issues"
+  },
+  "homepage": "https://github.com/renantatsuo/wp-dev-env#readme"
+}

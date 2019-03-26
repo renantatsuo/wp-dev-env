@@ -1,2 +1,3 @@
 # wp-dev-env
-Local Wordpress environment for theme development
+
+Local environment to develop Wordpress themes.
