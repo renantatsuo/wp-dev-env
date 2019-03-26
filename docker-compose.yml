@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  db:
+    container_name: wp_dev_env_db
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+  web:
+    command:
+      - apache2-entrypoint.sh
+    container_name: wp_dev_env_web
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_HOST: db:3306
+    image: wordpress:latest
+    ports:
+      - '7000:80'
+    restart: always
+    volumes:
+      - web_data:/var/www/html
+      - ./src/theme:/var/www/html/wp-content/themes/wp-dev-env-theme
+      - ./scripts/apache2-entrypoint.sh:/usr/local/bin/apache2-entrypoint.sh
+  wordpress-cli:
+    command:
+      - wp-cli-entrypoint.sh
+    container_name: wp_dev_env_cli
+    depends_on:
+      - db
+      - web
+    image: wordpress:cli
+    user: xfs
+    volumes:
+      - web_data:/var/www/html
+      - ./src/theme:/var/www/html/wp-content/themes/wp-dev-env-theme
+      - ./scripts/wp-cli-entrypoint.sh:/usr/local/bin/wp-cli-entrypoint.sh
+volumes:
+  db_data:
+  web_data:
